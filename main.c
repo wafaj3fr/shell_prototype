@@ -1,13 +1,22 @@
-#include "shell.h"
+#include "main.h"
 
-int main()
+int main(int ac, char **argv)
 {
-    char command[128];
-    while (1)
+    char *prompt = "AWshell $";
+    char *lineptr;
+    size_t n = 0;
+    size_t str_read;
+
+    /*declaring void variables*/
+    (void)ac;
+    (void)argv;
+
+    while (prompt)
     {
-        prompt();
-        input(command, sizeof(command));
-        execute(command);
+        printf("%s", prompt);
+        getline(&lineptr, &n, stdin);
+        printf("%s\n", lineptr);
     }
-    return 0;
+    free(lineptr);
+    return (0);
 }
