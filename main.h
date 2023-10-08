@@ -6,4 +6,6 @@
 #include <string.h>
 #include <stdlib.h>
 
+void execcom(char **argv);
+
 #endif
