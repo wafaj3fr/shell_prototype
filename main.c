@@ -25,12 +25,12 @@ int main(int ac, char **argv)
     int num_pars = 0;
     char *pars;
     int i;
+    __pid_t pid;
 
     (void)ac;
 
     while (prompt)
     {
-
         write(1, prompt, strlen(prompt));
         stread = getline(&linptr, &n, stdin);
 
@@ -76,7 +76,23 @@ int main(int ac, char **argv)
         }
         argv[i] = NULL;
 
-        execcom(argv);
+        pid = fork();
+
+        if (pid == -1)
+        {
+            perror("fork");
+            return (-1);
+        }
+        else if (pid == 0)
+        {
+
+            execcom(argv);
+        }
+        else
+        {
+            int status;
+            wait(&status);
+        }
     }
 
     free(cp_linptr);
