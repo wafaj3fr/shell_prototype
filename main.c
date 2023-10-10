@@ -11,6 +11,7 @@ void execcom(char **argv)
         if (execve(com, argv, NULL) == -1)
         {
             perror("Error");
+            exit(EXIT_FAILURE); // Exit the child process on execve error
         };
     }
 }

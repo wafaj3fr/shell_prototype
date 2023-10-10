@@ -1,9 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/wait.h>
+#include "main.h"
 
 void execcom(char **argv)
 {
@@ -42,8 +37,7 @@ int main(int ac, char **argv)
 
         if (stread == -1)
         {
-            if (feof(stdin))
-            { // Check for EOF (Ctrl+D)
+            if (linptr != NULL && linptr[0] == '\0') { // Check if an empty line was entered (Ctrl+D)
                 printf("\nExiting shell...\n");
                 break; // Exit the loop gracefully
             }
@@ -53,8 +47,6 @@ int main(int ac, char **argv)
                 exit(EXIT_FAILURE);
             }
         }
-
-        /* The rest of your code remains the same */
 
         /*allocate space for copy of cp_linptr*/
         cp_linptr = malloc(sizeof(char) * stread);
@@ -111,10 +103,7 @@ int main(int ac, char **argv)
         }
     }
 
-    /* Free allocated memory */
     free(cp_linptr);
     free(linptr);
-    // Free argv array memory here (if you malloc it), before reassigning it
-
     return 0;
 }
