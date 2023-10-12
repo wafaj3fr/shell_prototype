@@ -11,5 +11,7 @@
 
 char *get_location(char *command);
 void execmd(char **argv);
+int _strlen(char *s);
+char *_strcpy(char *dest, char *src);
 
 #endif

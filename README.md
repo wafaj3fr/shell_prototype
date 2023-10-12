@@ -24,9 +24,8 @@ The shell is a command-line interface that acts as an intermediary between a use
 ## Content of this repository
 
 - The header file that contains function prototypes.
-- A function that displays the prompt.
-- A function that reads user input.
-- A function that executes commands.
+- A function that handles execution of commands along with their arguments.
+- A function that handles the PATH.
 - A main source code file that is an entry point.
 
 ## main source file

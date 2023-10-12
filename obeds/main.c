@@ -36,7 +36,7 @@ int main(int ac, char **argv)
             return (-1);
         }
         /* copy lineptr to lineptr_copy */
-        strcpy(lineptr_copy, lineptr);
+        _strcpy(lineptr_copy, lineptr);
 
         /********** split the string (lineptr) into an array of words ********/
         /* calculate the total number of tokens */
@@ -57,8 +57,8 @@ int main(int ac, char **argv)
 
         for (i = 0; token != NULL; i++)
         {
-            argv[i] = malloc(sizeof(char) * strlen(token));
-            strcpy(argv[i], token);
+            argv[i] = malloc(sizeof(char) * _strlen(token));
+            _strcpy(argv[i], token);
 
             token = strtok(NULL, delim);
         }
