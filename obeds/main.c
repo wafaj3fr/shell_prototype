@@ -64,6 +64,16 @@ int main(int ac, char **argv)
         }
         argv[i] = NULL;
 
+        for (i = 0; i <= num_tokens; i++)
+        {
+            const char *str = argv[0];
+            int result = strcmp(str, "exit");
+            if (result == 0)
+            {
+                return (-1);
+            }
+        }
+
         if ((pid = fork()) > 0)
         {
             // Parent process
