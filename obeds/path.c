@@ -26,9 +26,9 @@ char *get_location(char *command)
             file_path = malloc(command_length + directory_length + 2); /* NB: we added 2 for the slash and null character we will introduce in the full command */
             /* to build the path for the command, let's copy the directory path and concatenate the command to it */
             _strcpy(file_path, path_token);
-            strcat(file_path, "/");
-            strcat(file_path, command);
-            strcat(file_path, "\0");
+            _strcat(file_path, "/");
+            _strcat(file_path, command);
+            _strcat(file_path, "\0");
 
             /* let's test if this file path actually exists and return it if it does, otherwise try the next directory */
             if (stat(file_path, &buffer) == 0)
