@@ -7,7 +7,7 @@
 
 void execcom(char **argv)
 {
-    char *com = NULL;
+    char *com;
 
     if (argv)
     {
@@ -16,7 +16,7 @@ void execcom(char **argv)
         if (execve(com, argv, NULL) == -1)
         {
             perror("Error");
-            exit(EXIT_FAILURE); // Exit the child process on execve error
+            exit(EXIT_FAILURE);
         }
     }
 }
@@ -35,7 +35,7 @@ int main(int ac, char **argv)
 
     (void)ac;
 
-    while (1)
+    while (prompt)
     { // Infinite loop
         write(1, prompt, strlen(prompt));
         stread = getline(&linptr, &n, stdin);
@@ -43,9 +43,9 @@ int main(int ac, char **argv)
         if (stread == -1)
         {
             if (feof(stdin))
-            { // Check for EOF (Ctrl+D)
-                printf("\nExiting shell...\n");
-                break; // Exit the loop gracefully
+            {
+                write(1, "\n", 1);
+                break;
             }
             else
             {
