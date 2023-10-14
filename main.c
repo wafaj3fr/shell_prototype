@@ -1,39 +1,30 @@
 #include "main.h"
 
-void execcom(char **argv)
-{
-    char *com = NULL;
-
-    if (argv)
-    {
-        com = argv[0];
-
-        if (execve(com, argv, NULL) == -1)
-        {
-            perror("Error");
-            exit(EXIT_FAILURE); // Exit the child process on execve error
-        };
-    }
-}
+/**
+ * main - Entry point
+ * @ac: arguments count
+ * @argv: arguments
+ * Return: 0 for success
+ */
 
 int main(int ac, char **argv)
 {
     char *prompt = "The_shell_is_this $";
-    char *linptr = NULL, *cp_linptr = NULL;
+    char *line = NULL, *cp_line = NULL;
     size_t n = 0;
     ssize_t stread;
     const char *delim = " \n";
     int num_pars = 0;
     char *pars;
-    int i;
+    int i, status;
     __pid_t pid;
 
     (void)ac;
 
     while (prompt)
     {
-        write(1, prompt, strlen(prompt));
-        stread = getline(&linptr, &n, stdin);
+        write(1, prompt, _strlen(prompt));
+        stread = getline(&line, &n, stdin);
 
         if (stread == -1)
         {
@@ -41,20 +32,20 @@ int main(int ac, char **argv)
             break;
         }
 
-        /*allocate space for copy of cp_linptr*/
-        cp_linptr = malloc(sizeof(char) * stread);
-        if (cp_linptr == NULL)
+        /*allocate space for copy of cp_line*/
+        cp_line = malloc(sizeof(char) * stread);
+        if (cp_line == NULL)
         {
             write(1, "tsh: memory allocation error", 28);
             return (-1);
         }
 
-        /*copy linptr to cp_linptr*/
-        strcpy(cp_linptr, linptr);
+        /*copy line to cp_line*/
+        _strcpy(cp_line, line);
 
-        /*split linptr into array of words*/
+        /*split line into array of words*/
         /*calculate number of tokens*/
-        pars = strtok(linptr, delim);
+        pars = strtok(line, delim);
 
         while (pars != NULL)
         {
@@ -66,16 +57,26 @@ int main(int ac, char **argv)
         /*allocate space to hold the array of strings*/
         argv = malloc(sizeof(char *) * num_pars);
         /*store the pars in the argv array*/
-        pars = strtok(cp_linptr, delim);
+        pars = strtok(cp_line, delim);
 
         for (i = 0; pars != NULL; i++)
         {
-            argv[i] = malloc(sizeof(char) * strlen(pars));
+            argv[i] = malloc(sizeof(char) * _strlen(pars));
 
-            strcpy(argv[i], pars);
+            _strcpy(argv[i], pars);
             pars = strtok(NULL, delim);
         }
         argv[i] = NULL;
+
+        for (i = 0; i <= num_pars; i++)
+        {
+            const char *str = argv[0];
+            int result = strcmp(str, "exit");
+            if (result == 0)
+            {
+                return (-1);
+            }
+        }
 
         pid = fork();
 
@@ -87,17 +88,16 @@ int main(int ac, char **argv)
         else if (pid == 0)
         {
 
-            execcom(argv);
+            execute(argv);
         }
         else
         {
-            int status;
             wait(&status);
         }
     }
 
-    free(cp_linptr);
-    free(linptr);
+    free(cp_line);
+    free(line);
 
     return (0);
 }

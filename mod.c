@@ -1,5 +1,10 @@
 #include "main.h"
 
+/**
+ * execom - executes the command
+ * @argv: the command to be executed
+ */
+
 void execcom(char **argv)
 {
     char *com;
@@ -16,9 +21,16 @@ void execcom(char **argv)
     }
 }
 
-int main(int ac, char **argv)
+/**
+ * main - Entry point
+ * @ac: arguments count
+ * @argv: arguments
+ * Return: 0 for success
+ */
+
+int r(int ac, char **argv)
 {
-    char *prompt = "The_shell_is_this $";
+    char *prompt = "ay $";
     char *linptr = NULL, *cp_linptr = NULL;
     size_t n = 0;
     ssize_t stread;
@@ -110,6 +122,6 @@ int main(int ac, char **argv)
 
         free(cp_linptr);
         free(linptr);
-        return 0;
     }
+    return 0;
 }

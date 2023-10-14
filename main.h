@@ -1,14 +1,18 @@
 #ifndef MAIN_H
 #define MAIN_H
 
-#include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
-#include <string.h>
-#include <sys/types.h>
+#include <sys/stat.h>
 
-void execcom(char **argv);
+char *find_exe(char *command);
+void execute(char **argv);
+int _strlen(char *s);
+char *_strcpy(char *dest, char *src);
+char *_strcat(char *dest, char *src);
 
 #endif
