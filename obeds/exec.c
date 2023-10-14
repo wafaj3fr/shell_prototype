@@ -1,5 +1,10 @@
 #include "main.h"
 
+/**
+ * execmd - executes the command
+ * @argv: the command to be executed
+ */
+
 void execmd(char **argv)
 {
     char *command = NULL, *actual_command = NULL;

@@ -1,13 +1,6 @@
 #include "main.h"
 
-/**
- * main - Entry point
- * @ac: arguments count
- * @argv: arguments
- * Return: 0 for success
- */
-
-int main(int ac, char **argv)
+int d_prompt(void)
 {
     char *prompt = "(Eshell) $ ";
     char *lineptr = NULL, *lineptr_copy = NULL;
@@ -17,15 +10,11 @@ int main(int ac, char **argv)
     int num_tokens = 0;
     char *token;
     int i;
-    int status;
-    pid_t pid;
+    char **argv;
 
-    /* declaring void variables */
-    (void)ac;
-
-    /* Create a loop for the shell's prompt */
-    while (1)
+    while (prompt)
     {
+
         printf("%s", prompt);
         nchars_read = getline(&lineptr, &n, stdin);
         /* check if the getline function failed or reached EOF or user use CTRL + D */
@@ -70,32 +59,6 @@ int main(int ac, char **argv)
             token = strtok(NULL, delim);
         }
         argv[i] = NULL;
-
-        for (i = 0; i <= num_tokens; i++)
-        {
-            const char *str = argv[0];
-            int result = strcmp(str, "exit");
-            if (result == 0)
-            {
-                return (-1);
-            }
-        }
-
-        if ((pid = fork()) > 0)
-        {
-            // Parent process
-            wait(&status);
-            printf("Process terminated with status = %d\n", status);
-        }
-        else if (pid == 0)
-        {
-            execmd(argv);
-        }
-        else
-        {
-            perror("fork");
-            exit(1);
-        }
     }
     free(lineptr_copy);
     free(lineptr);

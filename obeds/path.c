@@ -1,5 +1,11 @@
 #include "main.h"
 
+/**
+ * get_location - gets the location of the executable
+ * @command: name of the executable
+ * Return: name of the file
+ */
+
 char *get_location(char *command)
 {
     char *path, *path_copy, *path_token, *file_path;
