@@ -17,5 +17,6 @@ char *_strcat(char *dest, char *src);
 int _strcmp(const char *s1, const char *s2);
 char *_strdup(char *str);
 void exit_builtin(void);
+char *_getenv(const char *name);
 
 #endif
