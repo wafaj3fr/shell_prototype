@@ -85,15 +85,6 @@ int main(int ac, char **argv)
             exit(0);
         }
 
-        /* check if the command exists */
-        if (access(argv[0], X_OK) != 0)
-        {
-            // The command does not exist.
-            // Print an error message and display the prompt again.
-            fprintf(stderr, "tsh: command not found: %s\n", argv[0]);
-            continue;
-        }
-
         /* fork the child process */
         pid = fork();
 

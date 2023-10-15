@@ -7,9 +7,8 @@ void exit_builtin(void)
 
 
 
-
 /* check if the command exists */
-int found = 0;
+/*int found = 0;
 char *path = getenv("PATH");
 char *path_copy = strdup(path);
 char *dir = strtok(path_copy, ":");
@@ -32,3 +31,4 @@ if (!found) {
     fprintf(stderr, "tsh: command not found: %s\n", argv[0]);
     continue;
 }
+*/
