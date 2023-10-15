@@ -21,20 +21,15 @@ int main(int ac, char **argv)
 
     (void)ac;
 
-    if (strcmp(argv[0], "exit") == 0)
-    {
-        exit_builtin();
-    }
-
-    while (prompt && stread != EOF)
+    while (prompt)
     {
         write(1, prompt, _strlen(prompt));
 
         /* check for empty lines */
         stread = getline(&line, &n, stdin);
-        if (stread == -1 || line[0] == '\n')
-        {
-            continue;
+        if (stread == EOF) {
+            write(1, "\n", 1);
+            exit(0);
         }
 
         /*allocate space for copy of cp_line*/
@@ -84,16 +79,22 @@ int main(int ac, char **argv)
         }
         argv[i] = NULL;
 
-        for (i = 0; i <= num_pars; i++)
+        /* check if the command is the exit built-in */
+        if (_strcmp(argv[0], "exit") == 0)
         {
-            const char *str = argv[0];
-            int result = _strcmp(str, "exit");
-            if (result == 0)
-            {
-                return (-1);
-            }
+            exit(0);
         }
 
+        /* check if the command exists */
+        if (access(argv[0], X_OK) != 0)
+        {
+            // The command does not exist.
+            // Print an error message and display the prompt again.
+            fprintf(stderr, "tsh: command not found: %s\n", argv[0]);
+            continue;
+        }
+
+        /* fork the child process */
         pid = fork();
 
         if (pid == -1)
@@ -117,7 +118,6 @@ int main(int ac, char **argv)
             free(argv[i]);
         }
     }
-
     free(argv);
     free(cp_line);
     free(line);
