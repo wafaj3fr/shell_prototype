@@ -9,13 +9,10 @@
 #include <sys/wait.h>
 #include <sys/stat.h>
 
-char *find_exe(char *command);
-void execute(char **argv);
+char *get_location(char *command);
+void execmd(char **argv);
 int _strlen(char *s);
 char *_strcpy(char *dest, char *src);
 char *_strcat(char *dest, char *src);
-int _strcmp(const char *s1, const char *s2);
-char *_strdup(char *str);
-void exit_builtin(void);
 
 #endif

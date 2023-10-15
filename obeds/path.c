@@ -6,9 +6,9 @@
  * Return: name of the file
  */
 
-char *find_exe(char *command)
+char *get_location(char *command)
 {
-    char *path, *cp_path, *path_token, *file_path;
+    char *path, *path_copy, *path_token, *file_path;
     int command_length, directory_length;
     struct stat buffer;
 
@@ -17,12 +17,12 @@ char *find_exe(char *command)
     if (path)
     {
         /* Duplicate the path string -> remember to free up memory for this because strdup allocates memory that needs to be freed*/
-        cp_path = _strdup(path);
+        path_copy = strdup(path);
         /* Get length of the command that was passed */
         command_length = _strlen(command);
 
         /* Let's break down the path variable and get all the directories available*/
-        path_token = strtok(cp_path, ":");
+        path_token = strtok(path_copy, ":");
 
         while (path_token != NULL)
         {
@@ -42,7 +42,7 @@ char *find_exe(char *command)
                 /* return value of 0 means success implying that the file_path is valid*/
 
                 /* free up allocated memory before returning your file_path */
-                free(cp_path);
+                free(path_copy);
 
                 return (file_path);
             }
@@ -54,8 +54,8 @@ char *find_exe(char *command)
             }
         }
 
-        /* if we don't get any file_path that exists for the command, we return NULL but we need to free up memory for cp_path */
-        free(cp_path);
+        /* if we don't get any file_path that exists for the command, we return NULL but we need to free up memory for path_copy */
+        free(path_copy);
 
         /* before we exit without luck, let's see if the command itself is a file_path that exists */
         if (stat(command, &buffer) == 0)
