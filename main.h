@@ -8,6 +8,7 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <sys/stat.h>
+#include <limits.h>
 
 char *find_exe(char *command);
 void execute(char **argv);
