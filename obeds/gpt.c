@@ -39,7 +39,7 @@ int main(int ac, char **av)
         }
 
         // Check if the user entered 'exit' and exit the shell
-        if (strcmp(argv[0], "exit") == 0)
+        if (_strcmp(argv[0], "exit") == 0)
         {
             free(line);
             free_argv(argv);

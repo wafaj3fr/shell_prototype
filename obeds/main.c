@@ -74,7 +74,7 @@ int main(int ac, char **argv)
         for (i = 0; i <= num_tokens; i++)
         {
             const char *str = argv[0];
-            int result = strcmp(str, "exit");
+            int result = _strcmp(str, "exit");
             if (result == 0)
             {
                 return (-1);
