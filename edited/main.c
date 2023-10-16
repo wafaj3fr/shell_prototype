@@ -90,7 +90,7 @@ int main(int ac, char **argv)
         pathval = malloc(sizeof(char *) * num_pars);
         pathval = find_exe(argv[0]);
 
-        if (pathval != NULL)
+        while (pathval)
         {
             /* check if the command exists */
             if (access(pathval, X_OK) != 0)

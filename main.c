@@ -18,6 +18,7 @@ int main(int ac, char **argv)
     char *pars;
     int i, status;
     __pid_t pid;
+    char *pathval;
 
     (void)ac;
 
@@ -86,32 +87,40 @@ int main(int ac, char **argv)
             exit(0);
         }
 
-        /* fork the child process */
-        pid = fork();
+        pathval = find_exe(argv[0]);
 
-        if (pid == -1)
+        /* check if the command exists */
+        if (access(pathval, X_OK) == 0)
         {
-            perror("fork");
-            return (-1);
-        }
-        else if (pid == 0)
-        {
+            pid = fork();
 
-            execute(argv);
+            if (pid == -1)
+            {
+                perror("fork");
+                return (-1);
+            }
+            else if (pid == 0)
+            {
+                execute(argv, pathval);
+            }
+            else
+            {
+                wait(&status);
+            }
         }
         else
         {
-            wait(&status);
-        }
-
-        /* free memory */
-        for (i = 0; i < num_pars; i++)
-        {
-            free(argv[i]);
+            printf("%s: Command not found\n", argv[0]);
         }
     }
-    free(argv);
+
+    for (i = 0; i < num_pars; i++)
+    {
+        free(argv[i]);
+    }
+    free(pathval);
     free(cp_line);
     free(line);
+
     return (0);
 }

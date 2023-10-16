@@ -1,5 +1,9 @@
 #include "main.h"
 
+/**
+ * _getenv - gets
+ */
+
 char *_getenv(const char *name)
 {
     extern char **environ;

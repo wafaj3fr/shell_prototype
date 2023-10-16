@@ -8,16 +8,13 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <sys/stat.h>
-#include <limits.h>
 
 char *find_exe(char *command);
-void execute(char **argv);
+void execute(char *const *argv, char *path);
 int _strlen(char *s);
 char *_strcpy(char *dest, char *src);
 char *_strcat(char *dest, char *src);
 int _strcmp(const char *s1, const char *s2);
-char *_strdup(char *str);
-void exit_builtin(void);
 char *_getenv(const char *name);
 
 #endif

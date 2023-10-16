@@ -5,22 +5,11 @@
  * @argv: the command to be executed
  */
 
-void execute(char **argv)
+void execute(char *const *argv, char *path)
 {
-    char *command = NULL, *actual_command = NULL;
 
-    if (argv)
+    if (execve(path, argv, NULL) == -1)
     {
-        /* get the command */
-        command = argv[0];
-
-        /* generate the path to this command before passing it to execve */
-        actual_command = find_exe(command);
-
-        /* execute the actual command with execve */
-        if (execve(actual_command, argv, NULL) == -1)
-        {
-            perror("Error:");
-        }
+        perror("Error:");
     }
 }
