@@ -87,7 +87,7 @@ int main(int ac, char **argv)
             exit(0);
         }
 
-        pathval = malloc(num_pars);
+        pathval = malloc(sizeof(char *) * num_pars);
         pathval = find_exe(argv[0]);
 
         if (pathval != NULL)
