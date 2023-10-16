@@ -10,13 +10,11 @@ char *find_exe(char *command)
 {
     char *path, *path_copy, *dir, *full_path;
     int found = 0;
-    size_t max_path_length = 1024; // This is a reasonable default value.
-
-    // Check if the command name starts with a `/`.
+    int max_path_length = 1024;
     if (command[0] == '/')
     {
-        // The command is a full path command.
         full_path = command;
+        return (full_path);
     }
     else
     {
@@ -40,8 +38,6 @@ char *find_exe(char *command)
         {
             snprintf(full_path, max_path_length, "%s/%s", dir, command);
 
-            // If the full path is longer than the maximum path length,
-            // we need to allocate a new buffer with a larger size.
             if (_strlen(full_path) >= max_path_length)
             {
                 max_path_length *= 2;

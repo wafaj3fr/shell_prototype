@@ -18,6 +18,7 @@ int main(int ac, char **argv)
     char *pars;
     int i, status;
     __pid_t pid;
+    char *pathval;
 
     (void)ac;
 
@@ -86,22 +87,36 @@ int main(int ac, char **argv)
             exit(0);
         }
 
-        /* fork the child process */
-        pid = fork();
+        pathval = malloc(num_pars);
+        pathval = find_exe(argv[0]);
 
-        if (pid == -1)
+        if (pathval != NULL)
         {
-            perror("fork");
-            return (-1);
-        }
-        else if (pid == 0)
-        {
+            /* check if the command exists */
+            if (access(pathval, X_OK) != 0)
+            {
+                fprintf(stderr, "tsh: command not found: %s\n", pathval);
+                continue;
+            }
 
-            execute(argv);
-        }
-        else
-        {
-            wait(&status);
+            /* fork the child process */
+            pid = fork();
+
+            if (pid == -1)
+            {
+                perror("fork");
+                return (-1);
+            }
+            else if (pid == 0)
+            {
+                printf("%s\n", pathval);
+                execute(argv, pathval);
+            }
+            else
+            {
+                printf("parent");
+                wait(&status);
+            }
         }
 
         /* free memory */
@@ -110,6 +125,7 @@ int main(int ac, char **argv)
             free(argv[i]);
         }
     }
+    free(pathval);
     free(argv);
     free(cp_line);
     free(line);
