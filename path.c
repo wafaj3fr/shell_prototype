@@ -6,6 +6,12 @@ char *find_exe(char *command)
     int found = 0;
     size_t max_path_length = 1024;
 
+    if (command[0] == '/')
+    {
+        full_path = command;
+        return (full_path);
+    }
+
     path = getenv("PATH");
     if (path == NULL)
     {
