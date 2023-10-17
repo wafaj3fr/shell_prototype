@@ -25,6 +25,7 @@ char *find_exe(char *command)
     if (full_path == NULL)
     {
         free(path_copy);
+        free(full_path);
         return NULL;
     }
 
@@ -40,6 +41,7 @@ char *find_exe(char *command)
             if (full_path == NULL)
             {
                 free(path_copy);
+                free(full_path);
                 return NULL;
             }
         }

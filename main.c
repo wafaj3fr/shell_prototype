@@ -14,7 +14,7 @@ int main(int ac, char **argv)
     size_t n = 0;
     ssize_t stread;
     const char *delim = " \n";
-    int num_pars = 0;
+    int num_pars;
     char *pars;
     int i, status;
     __pid_t pid;
@@ -24,6 +24,8 @@ int main(int ac, char **argv)
 
     while (prompt)
     {
+        num_pars = 0;
+        
         write(1, prompt, _strlen(prompt));
 
         /* check for empty lines */
@@ -69,7 +71,7 @@ int main(int ac, char **argv)
 
         for (i = 0; pars != NULL; i++)
         {
-            argv[i] = malloc(sizeof(char) * _strlen(pars));
+            argv[i] = malloc(_strlen(pars) + 1);
             if (argv[i] == NULL)
             {
                 write(1, "tsh: memory allocation error", 28);
@@ -82,12 +84,14 @@ int main(int ac, char **argv)
         argv[i] = NULL;
 
         /* check if the command is the exit built-in */
-        if (_strcmp(argv[0], "exit") == 0)
+        if (_strcmp(line, "exit") == 0)
         {
+            free(cp_line);
+            free(line);
             exit(0);
         }
 
-        pathval = find_exe(argv[0]);
+        pathval = find_exe(line);
 
         /* check if the command exists */
         if (access(pathval, X_OK) == 0)
@@ -121,6 +125,7 @@ int main(int ac, char **argv)
     free(pathval);
     free(cp_line);
     free(line);
+    free(argv);
 
     return (0);
 }
