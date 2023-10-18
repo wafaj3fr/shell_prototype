@@ -90,6 +90,10 @@ int main(int ac, char **argv)
             free(line);
             exit(0);
         }
+        else if (_strcmp(line, "\n") == 0)
+        {
+            continue;
+        }
 
         pathval = find_exe(line);
 
