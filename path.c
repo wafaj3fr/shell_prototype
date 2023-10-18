@@ -66,3 +66,14 @@ char *find_exe(char *command)
         return NULL;
     }
 }
+
+void print_environment()
+{
+    extern char **environ;
+
+    char **env = environ;
+    while (*env) {
+        printf("%s\n", *env);
+        env++;
+    }
+}

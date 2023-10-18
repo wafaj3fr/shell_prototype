@@ -94,6 +94,10 @@ int main(int ac, char **argv)
         {
             continue;
         }
+        else if (_strcmp(line, "env") == 0)
+        {
+            print_environment();
+        }
 
         pathval = find_exe(line);
 
