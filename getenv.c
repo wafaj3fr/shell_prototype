@@ -1,21 +1,23 @@
 #include "main.h"
 
 /**
- * _getenv - gets
+ * _getenv - gets the environment variable path.
+ * @name: name of the env.
  */
 
 char *_getenv(const char *name)
 {
     extern char **environ;
     int i;
+    char *equality, *path_val;
 
     for (i = 0; environ[i] != NULL; i++)
     {
-        char *key = strtok(environ[i], "=");
-        char *value = strtok(NULL, "");
-        if (strcmp(key, name) == 0)
+        equality = strtok(environ[i], "=");
+        path_val = strtok(NULL, "");
+        if (strcmp(equality, name) == 0)
         {
-            return value;
+            return (path_val);
         }
     }
 

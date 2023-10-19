@@ -9,24 +9,20 @@
 
 int main(int ac, char **argv)
 {
-    char *prompt = "The_shell_is_this $";
-    char *line = NULL, *cp_line = NULL;
+    char *line = NULL, *backup_line = NULL, *pars, *pathval;
     size_t n = 0;
     ssize_t stread;
     const char *delim = " \n";
-    int num_pars;
-    char *pars;
-    int i, status;
-    __pid_t pid;
-    char *pathval;
+    int num_pars, i, status;
+    pid_t pid;
 
     (void)ac;
 
-    while (prompt)
+    while (1)
     {
         num_pars = 0;
         
-        write(1, prompt, _strlen(prompt));
+        dollar_prpmpt();
 
         /* check for empty lines */
         stread = getline(&line, &n, stdin);
@@ -37,15 +33,15 @@ int main(int ac, char **argv)
         }
 
         /*allocate space for copy of cp_line*/
-        cp_line = malloc(sizeof(char) * stread);
-        if (cp_line == NULL)
+        backup_line = malloc(sizeof(char) * stread);
+        if (backup_line == NULL)
         {
             write(1, "tsh: memory allocation error", 28);
             return (-1);
         }
 
         /*copy line to cp_line*/
-        _strcpy(cp_line, line);
+        _strcpy(backup_line, line);
 
         /*split line into array of words*/
         /*calculate number of tokens*/
@@ -67,7 +63,7 @@ int main(int ac, char **argv)
         }
 
         /*store the pars in the argv array*/
-        pars = strtok(cp_line, delim);
+        pars = strtok(backup_line, delim);
 
         for (i = 0; pars != NULL; i++)
         {
@@ -86,7 +82,7 @@ int main(int ac, char **argv)
         /* check if the command is the exit built-in */
         if (_strcmp(line, "exit") == 0)
         {
-            free(cp_line);
+            free(backup_line);
             free(line);
             exit(0);
         }
@@ -122,7 +118,7 @@ int main(int ac, char **argv)
         }
         else
         {
-            printf("%s: Command not found\n", argv[0]);
+            write(1, "Command not found\n",19);
         }
     }
 
@@ -131,7 +127,7 @@ int main(int ac, char **argv)
         free(argv[i]);
     }
     free(pathval);
-    free(cp_line);
+    free(backup_line);
     free(line);
     free(argv);
 

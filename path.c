@@ -73,7 +73,15 @@ void print_environment()
 
     char **env = environ;
     while (*env) {
-        printf("%s\n", *env);
+        write(1, *env, _strlen(*env));
+        write(1, "\n", 2);
         env++;
     }
+}
+
+void dollar_prpmpt(void)
+{
+    char *prompt = "$ ";
+
+    write(1, prompt, _strlen(prompt));
 }

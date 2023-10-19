@@ -17,9 +17,6 @@ char *_strcat(char *dest, char *src);
 int _strcmp(const char *s1, const char *s2);
 char *_getenv(const char *name);
 void print_environment();
-
-
-char **tokenize_line(char *line);
-void free_tokens(char **tokens);
+void dollar_prpmpt(void);
 
 #endif
