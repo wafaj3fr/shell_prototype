@@ -8,15 +8,15 @@
 
 int _strlen(char *s)
 {
-    int len = 0;
-    int i;
+	int len = 0;
+	int i;
 
-    for (i = 0; s[i] != '\0'; i++)
-    {
-        len++;
-    }
+	for (i = 0; s[i] != '\0'; i++)
+	{
+		len++;
+	}
 
-    return (len);
+	return (len);
 }
 
 /**
@@ -28,24 +28,24 @@ int _strlen(char *s)
 
 char *_strcat(char *dest, char *src)
 {
-    int i, j;
+	int i, j;
 
-    i = 0;
-    while (dest[i] != '\0')
-    {
-        i++;
-    }
+	i = 0;
+	while (dest[i] != '\0')
+	{
+		i++;
+	}
 
-    j = 0;
-    while (src[j] != '\0')
-    {
-        dest[i] = src[j];
-        i++;
-        j++;
-    }
+	j = 0;
+	while (src[j] != '\0')
+	{
+		dest[i] = src[j];
+		i++;
+		j++;
+	}
 
-    dest[i] = '\0';
-    return (dest);
+	dest[i] = '\0';
+	return (dest);
 }
 
 /**
@@ -82,22 +82,22 @@ int _strcmp(const char *s1, const char *s2)
  */
 char *_strcpy(char *dest, char *src)
 {
-    int len, i;
+	int len, i;
 
-    len = 0;
+	len = 0;
 
-    while (src[len] != '\0')
-    {
-        len++;
-    }
+	while (src[len] != '\0')
+	{
+		len++;
+	}
 
-    for (i = 0; i < len; i++)
-    {
-        dest[i] = src[i];
-    }
-    dest[i] = '\0';
+	for (i = 0; i < len; i++)
+	{
+		dest[i] = src[i];
+	}
+	dest[i] = '\0';
 
-    return (dest);
+	return (dest);
 }
 
 /**
@@ -108,24 +108,24 @@ char *_strcpy(char *dest, char *src)
 
 char *_strdup(char *str)
 {
-    char *strnew = NULL;
-    unsigned int i;
-    int n;
+	char *strnew = NULL;
+	unsigned int i;
+	int n;
 
-    if (str == NULL)
-        return (NULL);
-    for (n = 0; str[n] != '\0'; n++)
-        ;
-    strnew = (char *)malloc(n + 1 * sizeof(char));
-    if (strnew != NULL)
-    {
-        for (i = 0; str[i] != '\0'; i++)
-            strnew[i] = str[i];
-    }
-    else
-    {
-        return (NULL);
-    }
-    strnew[i] = '\0';
-    return (strnew);
+	if (str == NULL)
+		return (NULL);
+	for (n = 0; str[n] != '\0'; n++)
+		;
+	strnew = (char *)malloc(n + 1 * sizeof(char));
+	if (strnew != NULL)
+	{
+		for (i = 0; str[i] != '\0'; i++)
+			strnew[i] = str[i];
+	}
+	else
+	{
+		return (NULL);
+	}
+	strnew[i] = '\0';
+	return (strnew);
 }
